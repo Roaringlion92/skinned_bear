@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovely-Skins | Book Doctor Appointments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 🎨 Color Variables */
+        :root {
+            --primary: #2A5C82;
+            --secondary: #68b4f7;
+            --accent: #FF6B6B;
+            --light: #F8F9FA;
+            --dark: #2C3E50;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+        }
+
+        /* 🌍 Reset & Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f0f4f7, #d9e8fc);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 1.0rem 0;
+            box-shadow: 0 4px 10px var(--shadow-dark);
+            /* border-radius: 0 0 0px 0px; */
+            animation: fadeIn 1s ease-in-out;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        /* .header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        text-align: center;
+        padding: 1.5rem;
+        box-shadow: 0 4px 10px var(--shadow-dark);
+        animation: fadeIn 1s ease-in-out;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        } */
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+        }
+
+        /* 🔎 Search Section */
+        .search-section {
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px var(--shadow-light);
+        }
+
+        .search-controls {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        input, select {
+            padding: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px var(--shadow-light);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            background: #4a90e2;
+            box-shadow: 0 5px 15px var(--shadow-dark);
+        }
+
+        /* 🏥 Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .doctor-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px var(--shadow-light);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 5px 15px var(--shadow-dark);
+        }
+
+        .doctor-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 20px var(--shadow-dark);
+            text-align: center;
+            animation: slideUp 0.6s ease-in-out;
+        }
+
+        .modal-content input {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        .modal-content button {
+            width: 100%;
+            margin-top: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content button {
+            background: #68b4f7;
+        }
+
+        .footer {
+            text-align: center;
+            padding: .5rem;
+            background: var(--primary);
+            color: white;
+            margin-top: 2rem;
+            position: sticky;
+            bottom: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lovely-Skins</h1>
+        <p>Find and Book Appointments with Nearby Doctors</p>
+    </header>
+
+    <section class="search-section">
+        <h2>Search for Specialists Near You</h2>
+        <div class="search-controls">
+            <input type="text" id="location" placeholder="Enter your location or use current location">
+            <select id="specialty">
+                <option value="dermatologist">Dermatologist</option>
+                <option value="general practitioner">General Practitioner</option>
+                <option value="pediatrician">Pediatrician</option>
+            </select>
+            <button onclick="findDoctors()">Search</button>
+        </div>
+    </section>
+
+    <div class="results-grid" id="results"></div>
+
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <h2>Book Appointment</h2>
+            <form id="bookingForm">
+                    <input type="date" id="appointmentDate" required>
+                    <input type="time" id="appointmentTime" required>
+                    <input type="text" id="patientName" placeholder="Your Name" required>
+                    <input type="email" id="patientEmail" placeholder="Your Email" required>
+                    <button type="submit">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Lovely-Skins &copy; 2025. Connecting You with Health Experts</p>
+    </footer>
+
+    <script>
+        const API_KEY = 'AIzaSyBEM7Ri4qcnRYg-xyExxRf7eyOipMpEcTU';
+        let currentLocation = null;
+
+        async function findDoctors() {
+            const specialty = document.getElementById('specialty').value;
+            const locationInput = document.getElementById('location').value;
+            document.getElementById('results').innerHTML = 'Searching...';
+
+            try {
+                if (navigator.geolocation && !locationInput) {
+                    const position = await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(resolve, reject);
+                    });
+                    currentLocation = `${position.coords.latitude},${position.coords.longitude}`;
+                } else {
+                    currentLocation = locationInput;
+                }
+
+                const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${specialty}+near+${currentLocation}&key=${API_KEY}`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status !== "OK") {
+                    throw new Error(`API Error: ${data.status} - ${data.error_message}`);
+                }
+
+                displayResults(data.results);
+            } catch (error) {
+                // console.error("Error:", error);
+                // document.getElementById('results').innerHTML = '<p>No doctors found. Please try again later.</p>';
+                console.error("🛑 Error:", error);
+
+        // Show local fallback doctors if API fails
+        const fallbackDoctors = [
+            { name: "Dr. Kumar's S-Thetics ", address: "398-L, Landmark: Near Sehgal Tent House, Jalandhar", rating: 4.5 },
+            { name: "Dr. Anu Pal Goel", address: "1, Link Road, Landmark: Near Guru Amardass chowk, Jalandhar", rating: 4.2 },
+            { name: "Dr. Tarunveer Singh Kumar", address: "Near Sehgal Tent House, Jalandhar", rating: 4.0}
+        ];
+        displayResults(fallbackDoctors);
+            }
+        }
+
+        function displayResults(doctors) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = doctors.map(doctor => `
+                <div class="doctor-card">
+                    ${doctor.photos ? `<img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${doctor.photos[0].photo_reference}&key=${API_KEY}" class="doctor-image">` : ''}
+                    <h3>${doctor.name}</h3>
+                    <div>${doctor.rating ? '⭐'.repeat(Math.round(doctor.rating)) : 'No ratings available'}</div>
+                    <p>${doctor.formatted_address}</p>
+                    <button onclick="showBookingModal('${doctor.name}')">Book Appointment</button>
+                </div>
+            `).join('');
+        }
+
+        function showBookingModal(doctorName) {
+            document.getElementById('bookingModal').style.display = 'flex';
+            document.querySelector('.modal-content h2').textContent = `Book Appointment with ${doctorName}`;
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Booking confirmed!');
+            document.getElementById('bookingModal').style.display = 'none';
+        });
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
